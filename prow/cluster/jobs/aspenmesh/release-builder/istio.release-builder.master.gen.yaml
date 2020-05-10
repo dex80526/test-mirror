@@ -322,6 +322,11 @@ presubmits:
       containers:
       - command:
         - release/build-warning.sh
+        env:
+          - name: GCS_BUCKET
+            value: am-istio-prow/prerelease
+          - name: PRERELEASE_DOCKER_HUB
+            value: gcr.io/prow-cicd
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
