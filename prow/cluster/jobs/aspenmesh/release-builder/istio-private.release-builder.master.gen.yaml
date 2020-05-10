@@ -7,7 +7,7 @@ postsubmits:
     - ^master$
     clone_uri: git@github.com:aspenmesh/istio-release-builder.git
     decorate: true
-    name: lint_release-builder_postsubmit
+    name: lint_release-builder_postsubmit_priv
     path_alias: istio.io/release-builder
     spec:
       containers:
