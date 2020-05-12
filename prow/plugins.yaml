@@ -4,11 +4,11 @@
 ---
 triggers:
 - repos:
-  - aspenmesh/private-istio
-  - aspenmesh/private-cni
-  - aspenmesh/private-proxy
-  - aspenmesh/istio-test-infra
-  - aspenmesh/istio-release-builder
+  - aspenmesh/istio-privaate
+  - aspenmesh/cni-private
+  - aspenmesh/proxy-private
+  - aspenmesh/test-infra-private
+  - aspenmesh/release-builder-private
 
 config_updater:
   maps:
@@ -22,7 +22,7 @@ config_updater:
 slack:
   mergewarnings:
   - repos:
-    - aspenmesh/istio-test-infra
+    - aspenmesh/test-infra-private
     channels:
     - am-prow
     whitelist:
@@ -30,35 +30,35 @@ slack:
 
 lgtm:
 - repos:
-  - aspenmesh/private-istio
-  - aspenmesh/private-cni
-  - aspenmesh/private-proxy
-  - aspenmesh/istio-release-builder
+  - aspenmesh/istio-private
+  - aspenmesh/cni-private
+  - aspenmesh/proxy-private
+  - aspenmesh/release-builder-private
   review_acts_as_lgtm: true
   trusted_team_for_sticky_lgtm: "Istio Hackers"
 
 plugins:
-  aspenmesh/private-istio:
+  aspenmesh/istio-private:
   - size
   - trigger
   - wip
 
-  aspenmesh/private-cni:
+  aspenmesh/cni-private:
   - size
   - trigger
   - wip 
 
-  aspenmesh/private-proxy:
+  aspenmesh/proxy-private:
   - size
   - trigger
   - wip   
 
-  aspenmesh/private-istio-releases:
+  aspenmesh/istio-releases-private:
   - size
   - trigger
   - wip
 
-  aspenmesh/istio-test-infra:
+  aspenmesh/test-infra-private:
   - size
   - assign
   - config-updater
@@ -68,13 +68,13 @@ plugins:
   - skip
   - slackevents
 
-  aspenmesh/istio-release-builder:
+  aspenmesh/release-builder-private:
   - size
   - trigger
   - wip
   
 external_plugins:
-  aspenmesh/private-istio:
+  aspenmesh/istio-private:
   - name: needs-rebase
     events:
     - pull_request
@@ -83,7 +83,7 @@ external_plugins:
       - issue_comment
       - pull_request
       
-  aspenmesh/private-cni:
+  aspenmesh/cni-private:
   - name: needs-rebase
     events:
     - pull_request
@@ -92,7 +92,7 @@ external_plugins:
     - issue_comment
     - pull_request 
 
-  aspenmesh/private-proxy:
+  aspenmesh/proxy-private:
   - name: needs-rebase
     events:
     - pull_request
