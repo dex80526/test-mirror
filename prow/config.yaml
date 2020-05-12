@@ -54,8 +54,8 @@ deck:
       required_files:
       - podinfo.json
     announcement: "This page -- spyglass -- is the default viewer for prow.{{if .ArtifactPath}} For now, the deprecated gubernator page spyglass replaces <a href='https://gubernator.k8s.io/build/{{.ArtifactPath}}'>remains available</a>.{{end}}"
-  hidden_repos:
-  - istio-private
+  #hidden_repos:
+  #- istio-private
 
   tide_update_period: 1s
   rerun_auth_configs:
@@ -90,7 +90,7 @@ github_reporter:
 
 in_repo_config:
   enabled:
-    private-istio: true
+    istio-private: true
 
 # Tide is not enabled fror aspen mesh private repos
 tide:
@@ -128,7 +128,7 @@ tide:
     author: istio-testing
     reviewApprovedRequired: false
   - orgs:
-    - istio-private
+    - aspenmesh
     missingLabels: &istio_tide_missing_labels
     reviewApprovedRequired: true
   merge_method:

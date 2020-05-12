@@ -1,0 +1,11 @@
+defaults:
+  mapping:
+    istio: aspenmesh
+  input: ./prow/cluster/jobs/
+  output: ./prow/cluster/jobs/am/
+  ssh-clone: true
+  refs: true
+  modifier: am
+  annotations:
+    testgrid-create-test-group: "false"
+  volume-blacklist: [build-cache-pvc]

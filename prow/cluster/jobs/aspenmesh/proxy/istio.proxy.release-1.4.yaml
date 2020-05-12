@@ -3,7 +3,7 @@ branch_spec: &branch_spec
 
 presubmits:
 
-  aspenmesh/private-proxy:
+  aspenmesh/proxy-private:
 
   - name: proxy-presubmit
     annotations:
@@ -11,7 +11,7 @@ presubmits:
     branches: *branch_spec
     always_run: true
     decorate: true
-    clone_uri: git@github.com:aspenmesh/private-proxy.git
+    clone_uri: git@github.com:aspenmesh/proxy-private.git
     labels:
       preset-enable-ssh: "true" 
       preset-service-account: "true"         
@@ -43,7 +43,7 @@ presubmits:
     branches: *branch_spec
     always_run: true
     decorate: true
-    clone_uri: git@github.com:aspenmesh/private-proxy.git
+    clone_uri: git@github.com:aspenmesh/proxy-private.git
     labels:
       preset-enable-ssh: "true" 
       preset-service-account: "true"         
@@ -75,7 +75,7 @@ presubmits:
     branches: *branch_spec
     always_run: true
     decorate: true
-    clone_uri: git@github.com:aspenmesh/private-proxy.git
+    clone_uri: git@github.com:aspenmesh/proxy-private.git
     labels:
       preset-enable-ssh: "true" 
       preset-service-account: "true"             
@@ -107,7 +107,7 @@ presubmits:
     branches: *branch_spec
     always_run: true
     decorate: true
-    clone_uri: git@github.com:aspenmesh/private-proxy.git
+    clone_uri: git@github.com:aspenmesh/proxy-private.git
     labels:
       preset-enable-ssh: "true" 
       preset-service-account: "true"             
@@ -142,7 +142,7 @@ presubmits:
 
 postsubmits:
 
-  aspenmesh/private-proxy:
+  aspenmesh/proxy-private:
 
   - name: proxy-postsubmit
     annotations:
@@ -150,7 +150,7 @@ postsubmits:
     branches: *branch_spec
     always_run: true
     decorate: true
-    clone_uri: git@github.com:aspenmesh/private-proxy.git
+    clone_uri: git@github.com:aspenmesh/proxy-private.git
     labels:
       preset-enable-ssh: "true" 
       preset-service-account: "true"             
