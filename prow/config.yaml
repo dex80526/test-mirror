@@ -128,7 +128,7 @@ tide:
     author: istio-testing
     reviewApprovedRequired: false
   - orgs:
-    - aspenmesh
+    - some-org-place-holder
     missingLabels: &istio_tide_missing_labels
     reviewApprovedRequired: true
   merge_method:
