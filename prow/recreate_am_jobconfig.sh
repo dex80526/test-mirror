@@ -13,4 +13,10 @@
  --from-file=istio.cni.release-1.6.gen.yaml=cluster/jobs/aspenmesh/cni/istio.cni.release-1.6.gen.yaml   \
  --from-file=istio.cni.release-1.4.gen.yaml=cluster/jobs/aspenmesh/cni/istio.cni.release-1.4.gen.yaml   \
  --from-file=istio.cni.release-1.5.gen.yaml=cluster/jobs/aspenmesh/cni/istio.cni.release-1.5.gen.yaml   \
- --from-file=istio.cni.master.gen.yaml=cluster/jobs/aspenmesh/cni/istio.cni.master.gen.yaml   --dry-run=client -o yaml | kubectl replace configmap job-config -f -
+ --from-file=istio.cni.master.gen.yaml=cluster/jobs/aspenmesh/cni/istio.cni.master.gen.yaml   \
+ --from-file=istio.release-builder.master.gen.yaml=cluster/jobs/aspenmesh/release-builder/istio.release-builder.master.gen.yaml   \
+ --from-file=istio-private.release-builder.master.gen.yaml=cluster/jobs/aspenmesh/release-builder/istio-private.release-builder.master.gen.yaml   \
+ --from-file=istio-private.release-builder.release-1.4.gen.yaml=cluster/jobs/aspenmesh/release-builder/istio-private.release-builder.release-1.4.gen.yaml   \
+ --from-file=istio-private.release-builder.release-1.5.gen.yaml=cluster/jobs/aspenmesh/release-builder/istio-private.release-builder.release-1.5.gen.yaml   \
+ --from-file=istio.release-builder.release-1.6.gen.yaml=cluster/jobs/aspenmesh/release-builder/istio.release-builder.release-1.6.gen.yaml   \
+ --dry-run=client -o yaml | kubectl replace configmap job-config -f -
