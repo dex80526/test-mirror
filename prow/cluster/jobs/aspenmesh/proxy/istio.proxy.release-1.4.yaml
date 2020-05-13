@@ -124,8 +124,6 @@ presubmits:
         command:
         - ./prow/proxy-presubmit-release.sh
         env:
-          - name: BAZEL_BUILD_RBE_INSTANCE
-            value: projects/prow-cicd/instances/default_instance
           - name: ENVOY_PREFIX
             value: envoy-wasm
           - name: ENVOY_REPOSITORY
@@ -167,8 +165,6 @@ postsubmits:
         command:
         - ./prow/proxy-postsubmit.sh
         env:
-          - name: BAZEL_BUILD_RBE_INSTANCE
-            value: projects/prow-cicd/instances/default_instance
           - name: DOCKER_REPOSITORY
             value: prow-cicd/envoy
           - name: ENVOY_PREFIX

@@ -19,6 +19,8 @@ postsubmits:
         - entrypoint
         - ./prow/proxy-postsubmit.sh
         env:
+          - name: DOCKER_REPOSITORY
+            value: prow-cicd/envoy
           - name: GCS_ARTIFACTS_BUCKET
             value: am-istio-prow
           - name: GCS_BUILD_BUCKET
