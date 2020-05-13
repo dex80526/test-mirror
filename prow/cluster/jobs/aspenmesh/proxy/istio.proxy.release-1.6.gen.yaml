@@ -19,6 +19,8 @@ postsubmits:
         - entrypoint
         - ./prow/proxy-postsubmit.sh
         env:
+          - name: LOCAL_BUILD
+            value: true
           - name: DOCKER_REPOSITORY
             value: prow-cicd/envoy
           - name: GCS_ARTIFACTS_BUCKET
@@ -141,7 +143,10 @@ presubmits:
     spec:
       containers:
       - command:
-        - ./prow/proxy-presubmit-release.sh   
+        - ./prow/proxy-presubmit-release.sh
+        env:
+          - name: LOCAL_BUILD
+            value: true   
         image: gcr.io/istio-testing/build-tools-proxy:master-2020-04-28T21-48-12
         name: ""
         resources:

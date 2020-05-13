@@ -26,7 +26,10 @@ presubmits:
       containers:
       - image: gcr.io/istio-testing/prowbazel:0.5.16
         command:
-        - ./prow/proxy-presubmit.sh     
+        - ./prow/proxy-presubmit.sh 
+        env:
+          - name: LOCAL_BUILD
+            value: true    
         resources:
           requests:
             memory: "8Gi"
@@ -124,6 +127,8 @@ presubmits:
         command:
         - ./prow/proxy-presubmit-release.sh
         env:
+          - name: LOCAL_BUILD
+            value: true
           - name: ENVOY_PREFIX
             value: envoy-wasm
           - name: ENVOY_REPOSITORY
@@ -165,6 +170,8 @@ postsubmits:
         command:
         - ./prow/proxy-postsubmit.sh
         env:
+          - name: LOCAL_BUILD
+            value: true
           - name: DOCKER_REPOSITORY
             value: prow-cicd/envoy
           - name: ENVOY_PREFIX
