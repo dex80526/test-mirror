@@ -29,7 +29,7 @@ presubmits:
         - ./prow/proxy-presubmit.sh 
         env:
           - name: LOCAL_BUILD
-            value: true    
+            value: "true"    
         resources:
           requests:
             memory: "8Gi"
@@ -128,7 +128,7 @@ presubmits:
         - ./prow/proxy-presubmit-release.sh
         env:
           - name: LOCAL_BUILD
-            value: true
+            value: "true"
           - name: ENVOY_PREFIX
             value: envoy-wasm
           - name: ENVOY_REPOSITORY
@@ -171,7 +171,7 @@ postsubmits:
         - ./prow/proxy-postsubmit.sh
         env:
           - name: LOCAL_BUILD
-            value: true
+            value: "true"
           - name: DOCKER_REPOSITORY
             value: prow-cicd/envoy
           - name: ENVOY_PREFIX
