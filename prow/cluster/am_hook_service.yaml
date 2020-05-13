@@ -5,12 +5,21 @@ metadata:
     app: hook
     app.kubernetes.io/part-of: prow
   name: hook
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-west-2:715707337212:certificate/ca9f9b0c-2701-40c9-9932-c5bc6e4e09fe
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
 spec:
   selector:
     app: hook
   ports:
   - name: main
     port: 8888
+  - name: https
+    port: 443
+    targetPort: 8888  
   - name: metrics
     port: 9090
   type: LoadBalancer
