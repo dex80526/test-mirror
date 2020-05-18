@@ -110,6 +110,12 @@ postsubmits:
       - command:
         - entrypoint
         - test/publish.sh
+        env:
+          - name: DEPENDENCIES
+            valueFrom:
+              configMapKeyRef:
+                name: master-deps
+                key: dependencies
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
@@ -153,6 +159,11 @@ postsubmits:
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
             value: gcr.io/prow-cicd
+          - name: DEPENDENCIES
+              valueFrom:
+                configMapKeyRef:
+                  name: master-deps
+                  key: dependencies
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
@@ -196,6 +207,11 @@ postsubmits:
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
             value: gcr.io/prow-cicd
+          - name: DEPENDENCIES
+            valueFrom:
+              configMapKeyRef:
+                name: master-deps
+                key: dependencies  
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
@@ -320,7 +336,12 @@ presubmits:
           - name: DOCKER_HUB
             value: gcr.io/prow-cicd
           - name: GCS_BUCKET
-            value: am-istio-prow/test  
+            value: am-istio-prow/test 
+          - name: DEPENDENCIES
+            valueFrom:
+              configMapKeyRef:
+                name: master-deps
+                key: dependencies     
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
@@ -356,6 +377,11 @@ presubmits:
             value: am-istio-prow/prerelease
           - name: PRERELEASE_DOCKER_HUB
             value: gcr.io/prow-cicd
+          - name: DEPENDENCIES
+            valueFrom:
+              configMapKeyRef:
+                name: master-deps
+                key: dependencies
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
@@ -386,6 +412,12 @@ presubmits:
       containers:
       - command:
         - release/publish-warning.sh
+        env:
+          - name: DEPENDENCIES
+            valueFrom:
+              configMapKeyRef:
+                name: master-deps
+                key: dependencies
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
