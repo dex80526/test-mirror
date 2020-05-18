@@ -3,22 +3,22 @@ postsubmits:
   aspenmesh/release-builder-private:
   - annotations:
       testgrid-alert-email: istio-oncall@googlegroups.com
-      testgrid-dashboards: istio_release-builder_postsubmit
+      testgrid-dashboards: istio_release-1.5_release-builder_postsubmit
       testgrid-num-failures-to-alert: "1"
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: lint_release-builder_postsubmit
+    name: lint_release-builder_release-1.5_postsubmit
     path_alias: istio.io/release-builder
     spec:
       containers:
       - command:
         - make
         - lint
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -33,22 +33,22 @@ postsubmits:
         testing: build-pool
   - annotations:
       testgrid-alert-email: istio-oncall@googlegroups.com
-      testgrid-dashboards: istio_release-builder_postsubmit
+      testgrid-dashboards: istio_release-1.5_release-builder_postsubmit
       testgrid-num-failures-to-alert: "1"
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: test_release-builder_postsubmit
+    name: test_release-builder_release-1.5_postsubmit
     path_alias: istio.io/release-builder
     spec:
       containers:
       - command:
         - make
         - test
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -63,22 +63,22 @@ postsubmits:
         testing: build-pool
   - annotations:
       testgrid-alert-email: istio-oncall@googlegroups.com
-      testgrid-dashboards: istio_release-builder_postsubmit
+      testgrid-dashboards: istio_release-1.5_release-builder_postsubmit
       testgrid-num-failures-to-alert: "1"
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: gencheck_release-builder_postsubmit
+    name: gencheck_release-builder_release-1.5_postsubmit
     path_alias: istio.io/release-builder
     spec:
       containers:
       - command:
         - make
         - gen-check
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -93,16 +93,16 @@ postsubmits:
         testing: build-pool
   - annotations:
       testgrid-alert-email: istio-oncall@googlegroups.com
-      testgrid-dashboards: istio_release-builder_postsubmit
+      testgrid-dashboards: istio_release-1.5_release-builder_postsubmit
       testgrid-num-failures-to-alert: "1"
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
       preset-service-account: "true"
-    name: dry-run_release-builder_postsubmit
+    name: dry-run_release-builder_release-1.5_postsubmit
     path_alias: istio.io/release-builder
     run_if_changed: \.go$|\.sh$
     spec:
@@ -118,9 +118,9 @@ postsubmits:
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
-                name: master-deps
-                key: dependencies
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+                name: release-1.5-deps
+                key: dependencies 
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -135,16 +135,16 @@ postsubmits:
         testing: build-pool
   - annotations:
       testgrid-alert-email: istio-oncall@googlegroups.com
-      testgrid-dashboards: istio_release-builder_postsubmit
+      testgrid-dashboards: istio_release-1.5_release-builder_postsubmit
       testgrid-num-failures-to-alert: "1"
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
       preset-release-pipeline: "true"
-    name: build-release_release-builder_postsubmit
+    name: build-release_release-builder_release-1.5_postsubmit
     path_alias: istio.io/release-builder
     run_if_changed: ^release/trigger-build$
     spec:
@@ -154,17 +154,17 @@ postsubmits:
         - release/build.sh
         env:
           - name: GCS_BUCKET
-            value: am-istio-prow/prerelease
+            value: am-istio-prow/release
           - name: DOCKER_HUB
-            value: docker.io/dexchen   
+            value: docker.io/dexchen
           - name: PRERELEASE_DOCKER_HUB
             value: gcr.io/prow-cicd
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
-                name: master-deps
-                key: dependencies
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+                name: release-1.5-deps
+                key: dependencies  
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -179,16 +179,16 @@ postsubmits:
         testing: build-pool
   - annotations:
       testgrid-alert-email: istio-oncall@googlegroups.com
-      testgrid-dashboards: istio_release-builder_postsubmit
+      testgrid-dashboards: istio_release-1.5_release-builder_postsubmit
       testgrid-num-failures-to-alert: "1"
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
       preset-release-pipeline: "true"
-    name: publish-release_release-builder_postsubmit
+    name: publish-release_release-builder_release-1.5_postsubmit
     path_alias: istio.io/release-builder
     run_if_changed: ^release/trigger-publish$
     spec:
@@ -210,9 +210,9 @@ postsubmits:
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
-                name: master-deps
-                key: dependencies  
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+                name: release-1.5-deps
+                key: dependencies    
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -229,21 +229,21 @@ presubmits:
   aspenmesh/release-builder-private:
   - always_run: true
     annotations:
-      testgrid-dashboards: istio_release-builder
+      testgrid-dashboards: istio_release-1.5_release-builder
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: lint_release-builder
+    name: lint_release-builder_release-1.5
     path_alias: istio.io/release-builder
     spec:
       containers:
       - command:
         - make
         - lint
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -258,21 +258,21 @@ presubmits:
         testing: build-pool
   - always_run: true
     annotations:
-      testgrid-dashboards: istio_release-builder
+      testgrid-dashboards: istio_release-1.5_release-builder
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: test_release-builder
+    name: test_release-builder_release-1.5
     path_alias: istio.io/release-builder
     spec:
       containers:
       - command:
         - make
         - test
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -287,21 +287,21 @@ presubmits:
         testing: build-pool
   - always_run: true
     annotations:
-      testgrid-dashboards: istio_release-builder
+      testgrid-dashboards: istio_release-1.5_release-builder
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: gencheck_release-builder
+    name: gencheck_release-builder_release-1.5
     path_alias: istio.io/release-builder
     spec:
       containers:
       - command:
         - make
         - gen-check
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -316,15 +316,15 @@ presubmits:
         testing: build-pool
   - always_run: false
     annotations:
-      testgrid-dashboards: istio_release-builder
+      testgrid-dashboards: istio_release-1.5_release-builder
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
       preset-service-account: "true"
-    name: dry-run_release-builder
+    name: dry-run_release-builder_release-1.5
     path_alias: istio.io/release-builder
     run_if_changed: \.go$|\.sh$
     spec:
@@ -340,9 +340,9 @@ presubmits:
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
-                name: master-deps
+                name: release-1.5-deps
                 key: dependencies     
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -357,14 +357,14 @@ presubmits:
         testing: build-pool
   - always_run: false
     annotations:
-      testgrid-dashboards: istio_release-builder
+      testgrid-dashboards: istio_release-1.5_release-builder
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: build-warning_release-builder
+    name: build-warning_release-builder_release-1.5
     optional: true
     path_alias: istio.io/release-builder
     run_if_changed: ^release/trigger-build$
@@ -380,9 +380,9 @@ presubmits:
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
-                name: master-deps
-                key: dependencies
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+                name: release-1.5-deps
+                key: dependencies  
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
@@ -397,14 +397,14 @@ presubmits:
         testing: build-pool
   - always_run: false
     annotations:
-      testgrid-dashboards: istio_release-builder
+      testgrid-dashboards: istio_release-1.5_release-builder
     branches:
-    - ^master$
+    - ^release-1.5$
     decorate: true
     clone_uri: git@github.com:aspenmesh/release-builder-private.git
     labels:
       preset-enable-ssh: "true"
-    name: publish-warning_release-builder
+    name: publish-warning_release-builder_release-1.5
     optional: true
     path_alias: istio.io/release-builder
     run_if_changed: ^release/trigger-publish$
@@ -426,9 +426,9 @@ presubmits:
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
-                name: master-deps
+                name: release-1.5-deps
                 key: dependencies
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:
           limits:
