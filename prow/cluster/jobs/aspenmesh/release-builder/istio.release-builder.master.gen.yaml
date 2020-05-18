@@ -111,6 +111,10 @@ postsubmits:
         - entrypoint
         - test/publish.sh
         env:
+          - name: DOCKER_HUB
+            value: gcr.io/prow-cicd
+          - name: GCS_BUCKET
+            value: am-istio-prow/test 
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -413,6 +417,16 @@ presubmits:
       - command:
         - release/publish-warning.sh
         env:
+          - name: SOURCE_GCS_BUCKET
+            value: am-istio-prow/prerelease
+          - name: GCS_BUCKET
+            value: am-istio-prow/release
+          - name: DOCKER_HUB
+            value: docker.io/dexchen
+          - name: GITHUB_ORG
+            value: aspenmesh    
+          - name: PRERELEASE_DOCKER_HUB
+            value: gcr.io/prow-cicd 
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
