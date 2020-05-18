@@ -164,10 +164,10 @@ postsubmits:
           - name: PRERELEASE_DOCKER_HUB
             value: gcr.io/prow-cicd
           - name: DEPENDENCIES
-              valueFrom:
-                configMapKeyRef:
-                  name: master-deps
-                  key: dependencies
+            valueFrom:
+              configMapKeyRef:
+                name: master-deps
+                key: dependencies
         image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
         name: ""
         resources:
