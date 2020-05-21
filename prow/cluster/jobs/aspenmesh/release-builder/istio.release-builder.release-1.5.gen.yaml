@@ -154,7 +154,7 @@ postsubmits:
         - release/build.sh
         env:
           - name: GCS_BUCKET
-            value: am-istio-prow/release
+            value: am-istio-prow/prerelease
           - name: DOCKER_HUB
             value: docker.io/dexchen
           - name: PRERELEASE_DOCKER_HUB
