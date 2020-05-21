@@ -1,8 +1,8 @@
 ---
 plank:
-  job_url_template: 'http://prow.dev.twistio.io/view/gcs/am-istio-prow{{if eq .Spec.Type "presubmit"}}/pr-logs/pull/{{.Spec.Refs.Org}}_{{.Spec.Refs.Repo}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}{{else if eq .Spec.Type "batch"}}/pr-logs/pull/batch{{else}}/logs{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}'
+  job_url_template: 'https://prow.dev.twistio.io/view/gcs/am-istio-prow{{if eq .Spec.Type "presubmit"}}/pr-logs/pull/{{.Spec.Refs.Org}}_{{.Spec.Refs.Repo}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}{{else if eq .Spec.Type "batch"}}/pr-logs/pull/batch{{else}}/logs{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}'
   job_url_prefix_config:
-    '*': http://prow.dev.twistio.io/view/gcs/
+    '*': https://prow.dev.twistio.io/view/gcs/
   pod_pending_timeout: 15m
   pod_unscheduled_timeout: 5m
   default_decoration_configs:
@@ -136,7 +136,7 @@ tide:
     istio-releases/pipeline: squash
     istio-ecosystem/authservice: squash
     istio-private: squash
-  target_url: http://prow.dev.twistio.io/tide
+  target_url: https://prow.dev.twistio.io/tide
   context_options:
     from-branch-protection: true
     skip-unknown-contexts: true
