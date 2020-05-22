@@ -1,7 +1,7 @@
 org: istio
 repo: istio.io
 support_release_branching: true
-image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
 
 jobs:
   - name: lint
@@ -11,15 +11,9 @@ jobs:
     command: [make, gen-check]
 
   - name: k8s-tests
-    type: presubmit
     command: [entrypoint, prow/integ-suite-kind.sh, test.kube.presubmit]
     requirements: [kind]
     modifiers: [optional]
-
-  - name: k8s-tests
-    type: postsubmit
-    command: [entrypoint, prow/integ-suite-kind.sh, test.kube.postsubmit]
-    requirements: [kind, gcp]
 
   - name: update-ref-docs-dry-run
     type: presubmit
@@ -32,7 +26,7 @@ jobs:
     - --dry-run
     requirements: [github]
     modifiers: [optional]
-    repos: [istio/test-infra]
+    repos: [istio/test-infra@master]
 
   - name: update-ref-docs
     type: periodic
@@ -41,12 +35,12 @@ jobs:
     - ./tools/automator/automator.sh
     - --org=istio
     - --repo=istio.io
-    - "--title=Automator: update istio.io@release-1.6 reference docs"
+    - "--title=Automator: update istio.io@$AUTOMATOR_SRC_BRANCH reference docs"
     - --modifier=refdocs
     - --token-path=/etc/github-token/oauth
-    - --cmd=SOURCE_BRANCH_NAME=release-1.6 make update_ref_docs
+    - --cmd=make update_ref_docs
     requirements: [github]
-    repos: [istio/test-infra]
+    repos: [istio/test-infra@master]
 
 resources:
   default:

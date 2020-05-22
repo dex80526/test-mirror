@@ -19,11 +19,11 @@ periodics:
       - ./tools/automator/automator.sh
       - --org=istio
       - --repo=istio.io
-      - '--title=Automator: update istio.io@release-1.6 reference docs'
+      - '--title=Automator: update istio.io@$AUTOMATOR_SRC_BRANCH reference docs'
       - --modifier=refdocs
       - --token-path=/etc/github-token/oauth
-      - --cmd=SOURCE_BRANCH_NAME=release-1.6 make update_ref_docs
-      image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+      - --cmd=make update_ref_docs
+      image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
       name: ""
       resources:
         limits:
@@ -60,7 +60,7 @@ postsubmits:
       - command:
         - make
         - lint
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
         name: ""
         resources:
           limits:
@@ -87,7 +87,7 @@ postsubmits:
       - command:
         - make
         - gen-check
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
         name: ""
         resources:
           limits:
@@ -107,8 +107,6 @@ postsubmits:
     branches:
     - ^master$
     decorate: true
-    labels:
-      preset-service-account: "true"
     name: k8s-tests_istio.io_postsubmit
     path_alias: istio.io/istio.io
     spec:
@@ -116,8 +114,8 @@ postsubmits:
       - command:
         - entrypoint
         - prow/integ-suite-kind.sh
-        - test.kube.postsubmit
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        - test.kube.presubmit
+        image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
         name: ""
         resources:
           limits:
@@ -165,7 +163,7 @@ presubmits:
       - command:
         - make
         - lint
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
         name: ""
         resources:
           limits:
@@ -191,7 +189,7 @@ presubmits:
       - command:
         - make
         - gen-check
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
         name: ""
         resources:
           limits:
@@ -219,7 +217,7 @@ presubmits:
         - entrypoint
         - prow/integ-suite-kind.sh
         - test.kube.presubmit
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
         name: ""
         resources:
           limits:
@@ -275,7 +273,7 @@ presubmits:
         - --token-path=/etc/github-token/oauth
         - --cmd=make update_ref_docs
         - --dry-run
-        image: gcr.io/istio-testing/build-tools:master-2020-05-04T23-19-43
+        image: gcr.io/istio-testing/build-tools:master-2020-05-20T22-13-03
         name: ""
         resources:
           limits:
