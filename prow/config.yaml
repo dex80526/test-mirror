@@ -61,7 +61,7 @@ deck:
   rerun_auth_configs:
     '*':
       github_users:
-      -aspenbot 
+      - dex80526
       github_team_slugs:
       - org: aspenmesh
         slug: maintainers
