@@ -156,7 +156,7 @@ postsubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/prerelease
           - name: DOCKER_HUB
-            value: docker.io/dexchen
+            value: quay.io/dex80526
           - name: PRERELEASE_DOCKER_HUB
             value: gcr.io/prow-cicd
           - name: DEPENDENCIES
@@ -202,7 +202,7 @@ postsubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/release
           - name: DOCKER_HUB
-            value: docker.io/dexchen
+            value: quay.io/dex80526
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
@@ -418,7 +418,7 @@ presubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/release
           - name: DOCKER_HUB
-            value: docker.io/dexchen
+            value: quay.io/dex80526
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
