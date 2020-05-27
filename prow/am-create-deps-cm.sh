@@ -164,12 +164,12 @@ template_configmap() {
   cni:
     git: git@github.com:aspenmesh/cni-private.git
     branch: $branch
-  api:
-    git: https://github.com/istio/api
-    auto: modules
   proxy:
     git: git@github.com:aspenmesh/proxy-private.git
     branch: $branch
+  api:
+    git: https://github.com/istio/api
+    auto: modules
   pkg:
     git: https://github.com/istio/pkg
     auto: modules
