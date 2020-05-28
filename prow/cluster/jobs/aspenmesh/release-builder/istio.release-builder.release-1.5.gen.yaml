@@ -112,7 +112,7 @@ postsubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/dex80526
           - name: GCS_BUCKET
             value: am-istio-prow/test 
           - name: DEPENDENCIES
@@ -158,7 +158,7 @@ postsubmits:
           - name: DOCKER_HUB
             value: quay.io/dex80526
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/dex80526
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -206,7 +206,7 @@ postsubmits:
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/dex80526
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -334,7 +334,7 @@ presubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/dex80526
           - name: GCS_BUCKET
             value: am-istio-prow/test 
           - name: DEPENDENCIES
@@ -376,7 +376,7 @@ presubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/prerelease
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/dex80526
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -422,7 +422,7 @@ presubmits:
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd 
+            value: quay.io/dex80526
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
