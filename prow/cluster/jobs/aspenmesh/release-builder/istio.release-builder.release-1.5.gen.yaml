@@ -112,7 +112,7 @@ postsubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: GCS_BUCKET
             value: am-istio-prow/test 
           - name: DEPENDENCIES
@@ -156,9 +156,9 @@ postsubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/prerelease
           - name: DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -202,11 +202,11 @@ postsubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/release
           - name: DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -334,7 +334,7 @@ presubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: GCS_BUCKET
             value: am-istio-prow/test 
           - name: DEPENDENCIES
@@ -376,7 +376,7 @@ presubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/prerelease
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -418,11 +418,11 @@ presubmits:
           - name: GCS_BUCKET
             value: am-istio-prow/release
           - name: DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/dex80526
+            value: quay.io/aspenmesh/prow-cicd
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
