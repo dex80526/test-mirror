@@ -22,11 +22,11 @@ postsubmits:
           - name: LOCAL_BUILD
             value: "true"
           - name: DOCKER_REPOSITORY
-            value: prow-cicd/envoy
+            value: am-prow-cicd/envoy
           - name: GCS_ARTIFACTS_BUCKET
-            value: am-istio-prow
+            value: am-prow-artifacts
           - name: GCS_BUILD_BUCKET
-            value: am-istio-prow         
+            value: am-istio         
         image: gcr.io/istio-testing/build-tools-proxy:release-1.5-2020-03-24T16-54-03
         name: ""
         resources:

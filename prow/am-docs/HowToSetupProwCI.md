@@ -5,12 +5,12 @@
 * Create a Prow K8S cluster hosted in AWS (via EKS or provisioned using kops)
    * m5.12xlarge EC2 instance types are recommended 
    * disk space: 100 GiB
-   * 5-9 work nodes
+   * 9-21 worker nodes
 * GitHub bot account for Prow CI
 * Create a EFS via aws cli or console by following AWS EFS [instructions](https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html)
 * kubectl is installed and configured to access the Prow cluster
 * [Configure Google Cloud Storage](#configure-google-cloud-storage)
-* Prepare SSL/TLS certs (request certs via ACM) via [AWS Load Balancer] (https://aws.amazon.com/premiumsupport/knowledge-center/terminate-https-traffic-eks-acm/) if HTTPs needs to enabled
+* Prepare SSL/TLS certs (request certs via ACM) via [AWS Load Balancer] (https://aws.amazon.com/premiumsupport/knowledge-center/terminate-https-traffic-eks-acm/)
 
 ## Deploy Prow
 ### 1. Clone test-infra-private repository
@@ -18,6 +18,7 @@
   $  git clone git@github.com:aspenmesh/test-infra-private.git
 ```
 ### 2. Create and Deploy Prow resources
+Note: The following steps are captured in create_k8s_secrets.sh and config_prow.sh as a reference if you want to script them. The scripts assume the secret files are under ./secrets which do not exist in the Git.
 * Create Persistent Volume and Persistent Volume Claim of build cache
   * The persistent volume and the claim are defined in prow/cluster/aws_build_cache.yaml. The parameters such as volumeHandle needs to be adjusted and match to the real value in AWS.
 ```sh
@@ -34,8 +35,10 @@
 * Create cluster role binding
 ```sh
   $  kubectl create clusterrolebinding cluster-admin-binding-"${USER}" --clusterrole=cluster-admin --user="${USER}"
+
+  $  kubectl create clusterrolebinding cluster-admin-binding-defauluser --clusterrole=cluster-admin --serviceaccount=default:default
 ```
-* Create GitHub secret
+* Create GitHub webhook secret (hmac-token)
 ```sh
   $ openssl rand -hex 20 > ./hmac-secret
   $ kubectl create secret generic hmac-token --from-file=hmac=./hmac-secret
@@ -59,8 +62,8 @@
  ```code
        client_id: <your oauth client id>
        client_secret: <client secret>
-       redirect_url: http://prow.dev.twistio.io/github-login/redirect
-       final_redirect_url: http://prow.dev.twistio.io/pr
+       redirect_url: https://prow.dev.twistio.io/github-login/redirect
+       final_redirect_url: https://prow.dev.twistio.io/pr
        scopes:
        - repo
 ```
@@ -79,27 +82,18 @@
 ```sh
   $ kubectl -n test-pods create secret generic ssh-key-secret --from-file=secret=.ssh/prow_bot_id_rsa
 ```
-* [Optional] Create Slack OAuth secret for Slak notification following the [instruction](#create-slack-oauth-token-for-slack-notification)
-
-* Deploy Prow cluster configuration/resources
-  * Start with the 'starter.yaml' to set the basic K8S Prow components:
-  ```sh
-   $ kubectl apply -f prow/am-docs/start.yaml
-  ```
-  * Check the status of pods and services
-  ```sh
-   $  kubectl get pods
-   $  kubectl get svc
-   ```
-   * Apply Istio Prow CI specific
-```sh
-$ kubectl apply -f prow/cluster/aspenmesh/
-```
+* [Optional] Create Slack OAuth secret for Slack notification following the [instruction](#create-slack-oauth-token-for-slack-notification)
 
 * Bootstrap Prow config, plugins and job-config
 ```sh
   $ prow/recreate_prow_configmaps.sh
   $ prow/recreate_am_jobconfig.sh
+```
+
+* Deploy Prow cluster configuration/resources
+   * Apply private Istio Prow CI specifics
+```sh
+$ kubectl apply -f prow/cluster/aspenmesh/
 ```
 
 ### 3. Check the Prow deployments status:
@@ -127,7 +121,7 @@ tot            NodePort       10.100.196.182   <none>                           
 * 
     e.g.  http://a758bfdd27fe411ea8e0d02c7b127717-566388216.us-west-2.elb.amazonaws.com
     
-### 5. [Optional] Add a CNAME for the public addresses of deck and hook to Route 53
+### 5. Add a CNAME for the public addresses of deck and hook to Route 53
 *
    e.g. 
    * prow.dev.twistio.io
@@ -174,3 +168,49 @@ $ gcloud iam service-accounts keys create --iam-account "${identifier}" service-
 ```sh
 $ kubectl create secret generic slack-token --from-literal=token=< access token >
 ```
+
+# Private Istio Build Release Process
+[release-build-private](https://github.com/aspenmesh/release-builder-private) is used to control the release build publish process. Please read the README.md for the details.
+## Set up release builder K8S secrets and dependency configmaps
+  * create docker_config secret
+The release builder needs docker credentials to access image registry such as quay.io or docker.io.
+```sh
+$ kubectl -n test-pods create secret generic  rel-pipeline-docker-config --from-file=config.jon=secrets/docker_config.json
+```
+  * create secret for Github access
+  ```sh
+$ kubectl -n test-pods create secret generic rel-pipeline-github --from-file=rel-pipeline-github=secrets/robot_github-oauth-secret
+```
+  * create secret for GCS access
+  ```sh
+$ kubectl -n test-pods create secret generic rel-pipeline-service-account --from-file=rel-pipeline-service-account.json=secret/robot_gcs_service-account.json
+```
+* Create dependency configmaps for different releases
+  
+  The script in test-infra-private/prow/am-create-deps-cm.sh can be used to create dependency configmaps. For an example, to create configmaps for release-1.5 by running the script as the following (assuming the current working dir is in test-infra-private/):
+```sh
+$ prow/am-create-deps-cm.sh --branch=release-1.5 --namespace=test-pods --key=dependencies --interactive release-1.5-istio-deps
+
+$  prow/am-create-deps-cm.sh --branch=release-1.5 --namespace=test-pods --key=dependencies --interactive release-1.5-deps
+```
+
+## Trigger a new release build and publish
+* Clone release-build-private
+
+* Trigger a release build
+  * Create a new branch, e.g. "am-rc-1-build"
+  * Edit release/trigger-build to change the release version to the desired value, for an example, 1.5.3-am-rc-1
+  * Commit and publish the change
+  * Create a PR to trigger the Prow presubmit jobs
+  * Check the the CI job status and results
+  * Merge the PR to trigger the postsubmit jobs if all checks are passed
+* Trigger a release publish 
+  * Create a new branch, e.g. "am-rc-1-publish"
+  * Edit release/trigger-publish to change the release version to match the value in trigger-build
+  * Create a PR to trigger the Prow publish presubmit jobs
+  * Check the CI job status
+  * Merge the PR to trigger publish postsubmit jobs if all checks are passed
+  * Check the new release created in istio-private/releases
+  
+
+

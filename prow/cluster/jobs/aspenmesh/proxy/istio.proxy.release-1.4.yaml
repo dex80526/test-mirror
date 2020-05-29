@@ -173,15 +173,15 @@ postsubmits:
           - name: LOCAL_BUILD
             value: "true"
           - name: DOCKER_REPOSITORY
-            value: prow-cicd/envoy
+            value: am-prow-cicd/envoy
           - name: ENVOY_PREFIX
             value: envoy-wasm
           - name: ENVOY_REPOSITORY
             value: https://github.com/envoyproxy/envoy-wasm
           - name: GCS_ARTIFACTS_BUCKET
-            value: am-istio-prow
+            value: am-prow-artifacts
           - name: GCS_BUILD_BUCKET
-            value: am-istio-prow        
+            value: am-istio        
         securityContext:
           privileged: true
         resources:

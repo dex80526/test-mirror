@@ -1,8 +1,8 @@
 ---
 plank:
-  job_url_template: 'https://prow.dev.twistio.io/view/gcs/am-istio-prow{{if eq .Spec.Type "presubmit"}}/pr-logs/pull/{{.Spec.Refs.Org}}_{{.Spec.Refs.Repo}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}{{else if eq .Spec.Type "batch"}}/pr-logs/pull/batch{{else}}/logs{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}'
+  job_url_template: 'https://prow-prod.dev.twistio.io/view/gcs/am-istio-prow{{if eq .Spec.Type "presubmit"}}/pr-logs/pull/{{.Spec.Refs.Org}}_{{.Spec.Refs.Repo}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}{{else if eq .Spec.Type "batch"}}/pr-logs/pull/batch{{else}}/logs{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}'
   job_url_prefix_config:
-    '*': https://prow.dev.twistio.io/view/gcs/
+    '*': https://prow-prod.dev.twistio.io/view/gcs/
   pod_pending_timeout: 15m
   pod_unscheduled_timeout: 5m
   default_decoration_configs:
@@ -15,7 +15,7 @@ plank:
         entrypoint: "gcr.io/k8s-prow/entrypoint:v20200518-8da074ad4"
         sidecar: "gcr.io/k8s-prow/sidecar:v20200518-8da074ad4"
       gcs_configuration:
-        bucket: "am-istio-prow"
+        bucket: "am-istio"
         path_strategy: "explicit"
       gcs_credentials_secret: gcs-credentials
       ssh_key_secrets:
@@ -57,14 +57,12 @@ deck:
   #hidden_repos:
   #- istio-private
 
-  tide_update_period: 1s
+  tide_update_period: 10s
   rerun_auth_configs:
-    '*':
-      github_users:
-      - aspenbot
-      github_team_slugs:
-      - org: aspenmesh
-        slug: maintainers
+    'aspenmesh':
+      github_orgs:
+      - aspenmesh
+  
 
 prowjob_namespace: default
 pod_namespace: test-pods
@@ -79,7 +77,7 @@ slack_reporter_configs:
     job_states_to_report:
     - failure
     - error
-    channel: test-failures
+    channel: prow-test-failures
     report_template: 'Job *{{.Spec.Job}}* of type *{{.Spec.Type}}* ended with state *{{.Status.State}}*. <{{.Status.URL}}|View logs>'
  
 # Report job status for presubmit and postsubmit
@@ -90,53 +88,43 @@ github_reporter:
 
 in_repo_config:
   enabled:
-    istio-private: true
+    aspenmesh/istio-private: true
+    aspenmesh/cni-private: true
+    aspenmesh/proxy-private: true
+    aspenmesh/test-infra-private: true
+    aspenmesh/release-builder-private: true
 
 # Tide is not enabled fror aspen mesh private repos
 tide:
   queries:
   - repos:
-    - private-istio-releases/pipeline
+    - aspenmesh/istio-private
+    - aspenmesh/proxy-private
+    - aspenmesh/test-infra-private
+    - aspenmesh/cni-private
+    - aspenmesh/release-builder-private
     missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/work-in-progress
-    - needs-ok-to-test
-    - needs-rebase
-  - repos:
-    - istio/istio
-    - istio/proxy
-    - istio/operator
-    - istio/pkg
-    - istio/tools
-    - istio/bots
-    - istio/api
-    - istio/common-files
-    - istio/community
-    - istio/istio.io
-    - istio/gogo-genproto
-    - istio/test-infra
-    - istio/cni
-    - istio/installer
-    - istio/cri
-    - istio/client-go
-    - istio/release-builder
+      - do-not-merge
+      - do-not-merge/hold
+      - do-not-merge/work-in-progress
+      - needs-ok-to-test
+      - needs-rebase
     labels:
     - "cla: yes"
-    - auto-merge
     missingLabels: &istio_tide_missing_labels
-    author: istio-testing
-    reviewApprovedRequired: false
+    author: am-istio-testing
+    reviewApprovedRequired: true
   - orgs:
     - some-org-place-holder
     missingLabels: &istio_tide_missing_labels
     reviewApprovedRequired: true
   merge_method:
-    istio: squash
-    istio-releases/pipeline: squash
-    istio-ecosystem/authservice: squash
-    istio-private: squash
-  target_url: https://prow.dev.twistio.io/tide
+    aspenmesh/istio-private: squash
+    aspenmesh/cni-private: squash
+    aspenmesh/proxy-private: squash
+    aspenmesh/test-infra-private: squash
+    aspenmesh/release-builder-private: squash
+  target_url: https://prow-prod.dev.twistio.io/tide
   context_options:
     from-branch-protection: true
     skip-unknown-contexts: true

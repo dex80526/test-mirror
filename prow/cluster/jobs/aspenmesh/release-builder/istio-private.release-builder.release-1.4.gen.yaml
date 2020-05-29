@@ -101,11 +101,11 @@ postsubmits:
         - release/build.sh
         env:
         - name: GCS_BUCKET
-          value: am-istio-prow/prerelease
+          value: am-istio/prerelease
         - name: GOPRIVATE
           value: github.com/aspenmesh/private-istio/operator
         - name: PRERELEASE_DOCKER_HUB
-          value: gcr.io/prow-cicd
+          value: quay.io/aspenmesh
         image: gcr.io/istio-testing/build-tools:release-1.4-2020-02-14T15-30-45
         name: ""
         resources:
@@ -219,9 +219,9 @@ presubmits:
         - release/build-warning.sh
         env:
         - name: GCS_BUCKET
-          value: am-istio-prow/prerelease
+          value: am-istio/prerelease
         - name: PRERELEASE_DOCKER_HUB
-          value: gcr.io/prow-cicd
+          value: quay.io/aspenmesh
         image: gcr.io/istio-testing/build-tools:release-1.4-2020-02-14T15-30-45
         name: ""
         resources:

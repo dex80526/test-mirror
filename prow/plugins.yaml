@@ -53,11 +53,6 @@ plugins:
   - trigger
   - wip   
 
-  aspenmesh/istio-releases-private:
-  - size
-  - trigger
-  - wip
-
   aspenmesh/test-infra-private:
   - size
   - assign

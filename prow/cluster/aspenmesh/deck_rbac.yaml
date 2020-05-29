@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/part-of: prow
   namespace: default
-  annotations:
-    iam.gke.io/gcp-service-account: control-plane@k8s-prow.iam.gserviceaccount.com
-  name: deck
+  name: "deck"
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   namespace: default
-  name: deck
+  name: "deck"
 rules:
   - apiGroups:
       - "prow.k8s.io"
@@ -19,15 +19,16 @@ rules:
     verbs:
       - get
       - list
-      - watch
       # Required when deck runs with `--rerun-creates-job=true`
       - create
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
+  labels:
+    app.kubernetes.io/part-of: prow
   namespace: test-pods
-  name: deck
+  name: "deck"
 rules:
   - apiGroups:
       - ""
@@ -39,26 +40,30 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
+  labels:
+    app.kubernetes.io/part-of: prow
   namespace: default
-  name: deck
+  name: "deck"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: deck
+  name: "deck"
 subjects:
 - kind: ServiceAccount
-  name: deck
+  name: "deck"
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
+  labels:
+    app.kubernetes.io/part-of: prow
   namespace: test-pods
-  name: deck
+  name: "deck"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: deck
+  name: "deck"
 subjects:
 - kind: ServiceAccount
-  name: deck
+  name: "deck"
   namespace: default

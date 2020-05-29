@@ -112,9 +112,9 @@ postsubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/aspenmesh
           - name: GCS_BUCKET
-            value: am-istio-prow/test 
+            value: am-istio/test 
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -154,11 +154,11 @@ postsubmits:
         - release/build.sh
         env:
           - name: GCS_BUCKET
-            value: am-istio-prow/release
+            value: am-istio/release
           - name: DOCKER_HUB
-            value: docker.io/dexchen
+            value: quay.io/aspenmesh
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/aspenmesh
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -198,15 +198,15 @@ postsubmits:
         - release/publish.sh
         env:
           - name: SOURCE_GCS_BUCKET
-            value: am-istio-prow/prerelease
+            value: am-istio/prerelease
           - name: GCS_BUCKET
-            value: am-istio-prow/release
+            value: am-istio/release
           - name: DOCKER_HUB
-            value: docker.io/dexchen
+            value: quay.io/aspenmesh
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/aspenmesh
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -334,9 +334,9 @@ presubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/aspenmesh
           - name: GCS_BUCKET
-            value: am-istio-prow/test 
+            value: am-istio/test 
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -374,9 +374,9 @@ presubmits:
         - release/build-warning.sh
         env:
           - name: GCS_BUCKET
-            value: am-istio-prow/prerelease
+            value: am-istio/prerelease
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd
+            value: quay.io/aspenmesh
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -414,15 +414,15 @@ presubmits:
         - release/publish-warning.sh
         env:
           - name: SOURCE_GCS_BUCKET
-            value: am-istio-prow/prerelease
+            value: am-istio/prerelease
           - name: GCS_BUCKET
-            value: am-istio-prow/release
+            value: am-istio/release
           - name: DOCKER_HUB
-            value: docker.io/dexchen
+            value: quay.io/aspenmesh
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: gcr.io/prow-cicd 
+            value: quay.io/aspenmesh 
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
