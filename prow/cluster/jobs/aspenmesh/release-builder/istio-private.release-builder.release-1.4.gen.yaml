@@ -105,7 +105,7 @@ postsubmits:
         - name: GOPRIVATE
           value: github.com/aspenmesh/private-istio/operator
         - name: PRERELEASE_DOCKER_HUB
-          value: quay.io/aspenmesh
+          value: quay.io/aspenmesh_private_builds
         image: gcr.io/istio-testing/build-tools:release-1.4-2020-02-14T15-30-45
         name: ""
         resources:
@@ -221,7 +221,7 @@ presubmits:
         - name: GCS_BUCKET
           value: am-istio/prerelease
         - name: PRERELEASE_DOCKER_HUB
-          value: quay.io/aspenmesh
+          value: quay.io/aspenmesh_private_builds
         image: gcr.io/istio-testing/build-tools:release-1.4-2020-02-14T15-30-45
         name: ""
         resources:

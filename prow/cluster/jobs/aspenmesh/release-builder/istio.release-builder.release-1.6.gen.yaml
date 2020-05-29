@@ -112,7 +112,7 @@ postsubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: GCS_BUCKET
             value: am-istio/test 
           - name: DEPENDENCIES
@@ -156,9 +156,9 @@ postsubmits:
           - name: GCS_BUCKET
             value: am-istio/release
           - name: DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -202,11 +202,11 @@ postsubmits:
           - name: GCS_BUCKET
             value: am-istio/release
           - name: DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -334,7 +334,7 @@ presubmits:
         - test/publish.sh
         env:
           - name: DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: GCS_BUCKET
             value: am-istio/test 
           - name: DEPENDENCIES
@@ -376,7 +376,7 @@ presubmits:
           - name: GCS_BUCKET
             value: am-istio/prerelease
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
@@ -418,11 +418,11 @@ presubmits:
           - name: GCS_BUCKET
             value: am-istio/release
           - name: DOCKER_HUB
-            value: quay.io/aspenmesh
+            value: quay.io/aspenmesh_private_builds
           - name: GITHUB_ORG
             value: aspenmesh    
           - name: PRERELEASE_DOCKER_HUB
-            value: quay.io/aspenmesh 
+            value: quay.io/aspenmesh_private_builds 
           - name: DEPENDENCIES
             valueFrom:
               configMapKeyRef:
