@@ -97,11 +97,11 @@ $ kubectl apply -f prow/cluster/aspenmesh/
 ```
 
 ### 3. Check the Prow deployments status:
-    ```sh
+```sh
     $  kubectl get deployments
 
     $  kubectl get svc
-    ```
+```
 Here is what the output looks like:
 ```console
 NAME           TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)                         AGE
@@ -185,13 +185,13 @@ $ kubectl -n test-pods create secret generic rel-pipeline-github --from-file=rel
   ```sh
 $ kubectl -n test-pods create secret generic rel-pipeline-service-account --from-file=rel-pipeline-service-account.json=secret/robot_gcs_service-account.json
 ```
-* Create dependency configmaps for different releases
+* create dependency configmaps for different releases
   
   The script in test-infra-private/prow/am-create-deps-cm.sh can be used to create dependency configmaps. For an example, to create configmaps for release-1.5 by running the script as the following (assuming the current working dir is in test-infra-private/):
 ```sh
 $ prow/am-create-deps-cm.sh --branch=release-1.5 --namespace=test-pods --key=dependencies --interactive release-1.5-istio-deps
 
-$  prow/am-create-deps-cm.sh --branch=release-1.5 --namespace=test-pods --key=dependencies --interactive release-1.5-deps
+$ prow/am-create-deps-cm.sh --branch=release-1.5 --namespace=test-pods --key=dependencies --interactive release-1.5-deps
 ```
 
 ## Trigger a new release build and publish
