@@ -3,9 +3,11 @@
 
 ## Preparation
 * Create a Prow K8S cluster hosted in AWS (via EKS or provisioned using kops)
+  * Need to create a cluster with a dedicated managed node group for each Availability Zone to support cluster auto-scaling
+  * [AWS EKS cluster creation instruction and auto-scaling] (https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html)
    * m5.12xlarge EC2 instance types are recommended 
-   * disk space: 100 GiB
-   * 9-21 worker nodes
+   * disk space: 60 GiB
+   * 3-21 worker nodes
 * GitHub bot account for Prow CI
 * Create a EFS via aws cli or console by following AWS EFS [instructions](https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html)
 * kubectl is installed and configured to access the Prow cluster
